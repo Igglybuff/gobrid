@@ -1,14 +1,15 @@
-package realdebrid
+package main
 
 import (
 	"context"
+	"fmt"
 	"time"
 
-	"github.com/deflix-tv/go-debrid"
+	log "github.com/sirupsen/logrus"
 
-	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
+	"github.com/deflix-tv/go-debrid/realdebrid"
 )
 
 const (
@@ -20,7 +21,7 @@ type DebridConnection struct {
 	RealDebridStatus string
 }
 
-func Load(ctx *context.Context, w *fyne.Window) {
+func RdLoad(ctx context.Context, w *Window) {
 	rdClient := DebridConnection{RealDebridStatus: "Disconnected"}
 
 	rdTitle := widget.NewLabel("Real-Debrid integration")
@@ -74,7 +75,7 @@ func (c *DebridConnection) rdConnect(ctx context.Context) (*realdebrid.User, err
 	return &user, err
 }
 
-func updateButtonText(c *DebridConnection, button *fyne.widget.Button) {
+func updateButtonText(c *DebridConnection, button *widget.Button) {
 	if c.RealDebridStatus == "Connected" {
 		button.SetText("Disconnect")
 	} else {

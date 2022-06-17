@@ -5,10 +5,14 @@ import (
 	"fmt"
 
 	log "github.com/sirupsen/logrus"
-	"github.com/Igglybuff/gobrid/pkg/realdebrid"
 
+	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 )
+
+type Window struct {
+	fyne.Window
+}
 
 func main() {
 	ctx := context.Background()
@@ -16,9 +20,10 @@ func main() {
 	a := app.New()
 	version := "v0.0.1"
 	title := fmt.Sprintf("gobrid %s", version)
-	w := a.NewWindow(title)
+	w := Window{a.NewWindow(title)}
 
-	realdebrid.Load(ctx, w)
+	// load real-debrid integration
+	RdLoad(ctx, &w)
 
 	w.Show()
 
